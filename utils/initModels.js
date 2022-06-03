@@ -22,8 +22,8 @@ const initModels = () => {
   Cart.hasMany(ProductInCart);
   ProductInCart.belongsTo(Cart);
 
-  ProductInCart.hasOne(Product);
-  Product.belongsTo(ProductInCart);
+  Product.hasOne(ProductInCart);
+  ProductInCart.belongsTo(Product);
 };
 
 module.exports = { initModels };

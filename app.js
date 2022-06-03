@@ -11,9 +11,13 @@ dotenv.config({ path: './config.env' });
 // controllers
 const { globalErrorHandler } = require('./controllers/error.controller');
 
+//utils
+const { AppError } = require('./utils/appError');
+
 // routes
 const { usersRouter } = require('./routes/users.routes');
 const { productsRouter } = require('./routes/products.routes');
+const { cartsRouter } = require('./routes/carts.routes');
 
 const app = express();
 
@@ -36,6 +40,7 @@ app.use(limiter);
 //endpoinds
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/cart', cartsRouter);
 
 app.use('*', (req, res, next) => {
   next(new AppError(404, `${req.originalUrl} not found in this server.`));

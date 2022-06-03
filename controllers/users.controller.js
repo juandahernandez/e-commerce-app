@@ -94,8 +94,26 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
   const { sessionUser } = req;
 
   const orders = await Order.findAll({
+    attributes: ['id', 'totalPrice', 'createdAt'],
     where: { userId: sessionUser.id },
-    include: [{ model: Cart, include: [{ model: ProductInCart }] }]
+    include: [
+      {
+        model: Cart,
+        attributes: ['id', 'status'],
+        include: [
+          {
+            model: ProductInCart,
+            attributes: ['quantity', 'status'],
+            include: [
+              {
+                model: Product,
+                attributes: ['id', 'title', 'description', 'price']
+              }
+            ]
+          }
+        ]
+      }
+    ]
   });
 
   res.status(200).json({

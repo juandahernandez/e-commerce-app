@@ -19,7 +19,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
     description,
     price,
     quantity,
-    userId: sessionUser.userId
+    userId: sessionUser.id
   });
 
   res.status(201).json({
